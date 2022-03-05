@@ -1,6 +1,10 @@
 package com.itexperts.projeto.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,14 +33,27 @@ public class UserController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<Void> update(@RequestBody User user, @PathVariable Long id){
-		userService.update(user, id);		
+			userService.update(user, id);		
 		return ResponseEntity.noContent().build();
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getById(@PathVariable Long id){
-		User user = userService.getById(id);		
+			User user = userService.getById(id);		
 		return ResponseEntity.ok().body(user);
+	}	
+	
+	@GetMapping("/list")
+	public ResponseEntity<List<User>> getAllList(){
+			List<User> users = userService.getAll();		
+		return ResponseEntity.ok().body(users);
 	}
+	
+	@GetMapping("/page")
+	public ResponseEntity<Page<User>> getAllPage(Pageable pageable){
+			Page<User> users = userService.getAll(pageable);		
+		return ResponseEntity.ok().body(users);
+	}
+	
 
 }
