@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itexperts.projeto.model.User;
+import com.itexperts.projeto.request.dto.RequestUpdateUserDTO;
 import com.itexperts.projeto.service.UserService;
 
 @RestController
@@ -32,8 +33,8 @@ public class UserController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody User user, @PathVariable Long id){
-			userService.update(user, id);		
+	public ResponseEntity<Void> updatePut(@RequestBody RequestUpdateUserDTO dto, @PathVariable Long id){
+			userService.update(dto, id);		
 		return ResponseEntity.noContent().build();
 	}
 	
